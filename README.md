@@ -30,3 +30,4 @@ todo...
 2. business error codes should design better
 3. add more script in makefile to build and run, like docker, docker-compose
 4. add unit test
+5. add CI/CD
