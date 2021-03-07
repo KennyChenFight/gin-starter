@@ -13,12 +13,12 @@ Based on this template, we can build our application faster.
 
 ### local build and run
 
-+ Requirement: install postgres and golang in your computer
+1. install postgres and golang in your computer
 
-```bash
-make local-build
-make local-run
-```
+2. ```bash
+    make local-build
+    make local-run
+    ```
 
 ### docker build and run
 
