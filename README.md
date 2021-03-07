@@ -31,3 +31,4 @@ todo...
 3. add more script in makefile to build and run, like docker, docker-compose
 4. add unit test
 5. add CI/CD
+6. separate util package to different package to make more good design
