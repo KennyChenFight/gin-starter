@@ -24,6 +24,9 @@ Based on this template, we can build our application faster.
 
 todo...
 
+## Contribution
++ provide your idea about this template in issue or raise PR request
+
 ## Roadmap
 
 1. Implement auth middleware
