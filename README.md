@@ -4,10 +4,10 @@ Based on this template, we can build our application faster.
 
 + Based on Gin web framework
 + Simple CRUD application
-+ Use route-service-dao three layers
 + Provide database migration
 + Provide model validation and i18n error code translate
-+ Provide bussiness error codes for our application domain
++ Provide business error codes for our application domain
++ Provide middleware handle global error and response
 
 ## How to run
 
@@ -35,3 +35,5 @@ todo...
 4. add unit test
 5. add CI/CD
 6. separate util package to different package to make more good design
+7. add cache
+8. add rate-limit

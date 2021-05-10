@@ -3,7 +3,7 @@ package dao
 import (
 	"time"
 
-	"github.com/KennyChenFight/gin-starter/pkg/util"
+	"github.com/KennyChenFight/gin-starter/pkg/business"
 )
 
 type Member struct {
@@ -13,12 +13,12 @@ type Member struct {
 	Name           string    `json:"name" binding:"required"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	DeletedAt      time.Time `pg:",soft_delete" json:"deletedAt"`
+	DeletedAt      time.Time `pg:",soft_delete" json:"-"`
 }
 
 type MemberDAO interface {
-	Create(member Member) (string, *util.BusinessError)
-	Get(memberID string) (Member, *util.BusinessError)
-	Update(member Member) *util.BusinessError
-	Delete(memberID string) *util.BusinessError
+	Create(member Member) (string, *business.Error)
+	Get(memberID string) (Member, *business.Error)
+	Update(member Member) *business.Error
+	Delete(memberID string) *business.Error
 }

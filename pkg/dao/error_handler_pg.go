@@ -1,10 +1,11 @@
 package dao
 
 import (
-	"log"
 	"net/http"
 
-	"github.com/KennyChenFight/gin-starter/pkg/util"
+	"github.com/KennyChenFight/gin-starter/pkg/business"
+	"github.com/KennyChenFight/golib/loglib"
+	"go.uber.org/zap"
 )
 
 const (
@@ -12,14 +13,14 @@ const (
 	PGErrMsgNoMultiRowsFound = "pg: multiple rows in result set"
 )
 
-func pgErrorHandle(err error) *util.BusinessError {
+func pgErrorHandle(logger *loglib.Logger, err error) *business.Error {
 	switch err.Error() {
 	case PGErrMsgNoRowsFound:
-		return util.NewBusinessError(util.NotFound, http.StatusNotFound, "record not found", err)
+		return business.NewError(business.NotFound, http.StatusNotFound, "record not found", err)
 	case PGErrMsgNoMultiRowsFound:
-		return util.NewBusinessError(util.NotFound, http.StatusNotFound, "multi records not found", err)
+		return business.NewError(business.NotFound, http.StatusNotFound, "multi records not found", err)
 	default:
-		log.Printf("[pgErrorHandle]:%v", err)
-		return util.NewBusinessError(util.Unknown, http.StatusInternalServerError, "internal error", err)
+		logger.Error("postgres internal error", zap.Error(err))
+		return business.NewError(business.Unknown, http.StatusInternalServerError, "internal error", err)
 	}
 }

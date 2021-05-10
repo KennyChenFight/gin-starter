@@ -1,7 +1,9 @@
-package util
+package validation
 
 import (
 	"errors"
+	"reflect"
+	"strings"
 
 	"github.com/go-playground/locales"
 	"github.com/go-playground/locales/en"
@@ -52,6 +54,13 @@ func NewValidationTranslator(ginBindingValidator *validator.Validate, defaultLan
 		}
 	}
 
+	ginBindingValidator.RegisterTagNameFunc(func(field reflect.StructField) string {
+		name := strings.SplitN(field.Tag.Get("json"), ",", 2)[0]
+		if name == "-" {
+			return ""
+		}
+		return name
+	})
 	return &ValidationTranslator{universalTranslator: uni, Validate: ginBindingValidator}, nil
 }
 
