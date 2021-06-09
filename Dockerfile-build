@@ -1,0 +1,2 @@
+FROM golang:1.16
+RUN /bin/sh -c "apt-get update && apt-get install make -y --no-install-recommends"
