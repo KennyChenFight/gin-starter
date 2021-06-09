@@ -20,20 +20,31 @@ Based on this template, we can build our application faster.
     make local-run
     ```
 
-### docker build and run
+### how to build,test,codegen,run
 
-todo...
+1. build 
+```bash
+./dockerbuild.sh
+```
+2. test
+```bash
+./dockerbuild.sh test
+```
+3. codegen
+```bash
+./dockerbuild.sh codegen
+```
+
+4. run
+```bash
+docker-compose up server
+```
 
 ## Contribution
 + provide your idea about this template in issue or raise PR request
 
 ## Roadmap
 
-1. Implement auth middleware
-2. business error codes should design better
-3. add more script in makefile to build and run, like docker, docker-compose
-4. add unit test
-5. add CI/CD
-6. separate util package to different package to make more good design
-7. add cache
-8. add rate-limit
+1. implement more useful middleware
+2. add unit test
+3. add CI/CD
