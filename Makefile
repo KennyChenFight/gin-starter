@@ -1,10 +1,17 @@
-DEFAULT_MIGRATION_FILE_DIR = ./migrations
+PATH := ${CURDIR}/bin/cmd:${CURDIR}/bin:$(PATH)
+goexe = $(shell go env GOEXE)
 
-.PHONY: local-build
-local-build:
-	ls cmd | xargs -I {} go build -o bin/cmd/{} cmd/{}/main.go
-	for file in ${DEFAULT_MIGRATION_FILE_DIR}; do cp -R $$file bin/cmd/; done
+.PHONY: build
+build: test
+	$(shell ls cmd | xargs -I {} go build -o bin/cmd/{} cmd/{}/main.go)
 
-.PHONY: local-run
-local-run:
-	./bin/cmd/server --postgres.url=postgres://postgres:postgres@localhost:5432/ginstarter?sslmode=disable --postgres.migration-file-dir=file://migrations
+.PHONY: test
+test:
+	go test -race -cover ./...
+
+.PHONY: codegen
+codegen: bin/mockgen$(go_exe)
+	go generate ./...
+
+bin/mockgen$(go_exe):
+	go build -o $@ github.com/golang/mock/mockgen

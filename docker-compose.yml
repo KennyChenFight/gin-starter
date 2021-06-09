@@ -1,0 +1,44 @@
+version: "3.4"
+
+x-common-env: &common-env
+  - POSTGRES_URL=postgres://postgres@postgres:5432/postgres?sslmode=disable
+
+x-common-build: &common-build
+  build:
+    context: .
+    dockerfile: Dockerfile-build
+  working_dir: /src
+  environment: *common-env
+  volumes:
+    - .:/src
+  depends_on:
+    - postgres
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  build:
+    <<: *common-build
+    command: ["make"]
+
+  test:
+    <<: *common-build
+    command: ["make", "test"]
+
+  codegen:
+    <<: *common-build
+    command: ["make", "codegen"]
+
+  server:
+    image: gin-starter:latest
+    build:
+      context: .
+      target: gin-starter
+    environment: *common-env
+    depends_on:
+      - postgres
+    ports:
+    - 8080:8080
